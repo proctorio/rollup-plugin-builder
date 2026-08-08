@@ -189,6 +189,13 @@ describe("builder()", function()
 		await expect(readOutput("nested")).rejects.toThrow(/ENOENT|EISDIR/u);
 	});
 
+	it("Should apply hulk html optimizations (attribute quotes, boolean attrs)", async function()
+	{
+		await writeInput("page.html", "<a href=\"https://example.com/x\" disabled=\"disabled\">go</a>");
+		await run();
+		expect(await readOutput("page.html")).toBe("<a href=https://example.com/x disabled>go</a>");
+	});
+
 	it("Should honor a custom extensions list", async function()
 	{
 		await writeInput("notes.txt", "keep me");

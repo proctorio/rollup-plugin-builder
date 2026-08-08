@@ -1,6 +1,6 @@
 {
 	"name": "rollup-plugin-builder",
-	"version": "1.0.1",
+	"version": "2.0.0",
 	"description": "Copies static asset directories into the build output, minifying text assets and stamping a configurable license banner",
 	"main": "./lib/index.cjs",
 	"repository": {
@@ -26,7 +26,7 @@
 		"extends": "@proctorio/eslint-config"
 	},
 	"dependencies": {
-		"clean-css": "4.2.3"
+		"@proctorio/hulk": "2.1.0"
 	},
 	"devDependencies": {
 		"@proctorio/eslint-config": "2.5.*",

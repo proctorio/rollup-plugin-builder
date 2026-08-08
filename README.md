@@ -6,8 +6,8 @@ Processing by extension:
 
 | Extension            | Treatment |
 | -------------------- | --------- |
-| `htm`, `html`        | whitespace/comment minify + banner |
-| `css`                | clean-css minify + banner |
+| `htm`, `html`        | minify (@proctorio/hulk) + banner |
+| `css`                | minify (@proctorio/hulk) + banner |
 | `xml`                | inter-tag whitespace compression |
 | `json`, `nmf`, `svg` | copied through untouched |
 | `webp`, `gif`, `png` | copied byte for byte |

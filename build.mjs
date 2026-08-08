@@ -1,3 +1,5 @@
+// Produces the dual-format lib/. The CJS build bundles dependencies so it stays loadable by
+// consumers that require() it on runtimes without ESM-require support.
 // Produces the dual-format lib/: the ESM source copied as-is plus an esbuild CJS transform, so
 // the plugin loads in both native ESM consumers and build tools that require() their config
 // dependencies as CommonJS.
@@ -12,7 +14,7 @@ await build({
 	outfile: "lib/index.cjs",
 	format: "cjs",
 	platform: "node",
-	bundle: false,
+	bundle: true,
 	logLevel: "error"
 });
 console.log("built lib/index.js (esm) + lib/index.cjs (cjs)");

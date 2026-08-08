@@ -1,9 +1,9 @@
 import fs from "node:fs/promises";
 import path from "node:path";
-import CleanCSS from "clean-css";
+import { minify__ } from "@proctorio/hulk";
 
 // Rollup plugin that copies static asset directories into the build output, minifying text
-// assets on the way and optionally stamping a license banner into html/css files. Banner text
+// assets on the way (via @proctorio/hulk) and optionally stamping a license banner into html/css files. Banner text
 // is caller-supplied with {{year}}/{{startYear}} placeholders - nothing company- or
 // year-specific is baked into the plugin.
 
@@ -73,31 +73,6 @@ export function renderBanner(text, style, startYear)
 }
 
 /**
- * @description Minifies html: collapses whitespace and strips comments.
- * @param {string} content - Raw html.
- * @return {string} Minified html.
- */
-function minifyHtml(content)
-{
-	let minified = content.replaceAll(/\r\n|\n|\t/giu, " ");
-	minified = minified.replaceAll(/>\s+</giu, "><").trim();
-	minified = minified.replaceAll(/\s{2,}/giu, " ");
-	minified = minified.replaceAll(/<!--[\d\D]*?-->/giu, "");
-
-	return minified;
-}
-
-/**
- * @description Minifies css through clean-css.
- * @param {string} content - Raw css.
- * @return {string} Minified css.
- */
-function minifyCss(content)
-{
-	return new CleanCSS().minify(content).styles;
-}
-
-/**
  * @description Compresses xml by collapsing inter-tag whitespace.
  * @param {string} content - Raw xml.
  * @return {string} Compressed xml.
@@ -119,12 +94,12 @@ function processContent(content, extension, banners)
 {
 	if (extension === "htm" || extension === "html")
 	{
-		return (banners.html || "") + minifyHtml(content);
+		return (banners.html || "") + minify__(content, "html");
 	}
 
 	if (extension === "css")
 	{
-		return (banners.css || "") + minifyCss(content);
+		return (banners.css || "") + minify__(content, "css");
 	}
 
 	if (extension === "xml")
