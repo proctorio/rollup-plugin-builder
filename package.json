@@ -1,0 +1,47 @@
+{
+	"name": "rollup-plugin-builder",
+	"version": "1.0.1",
+	"description": "Copies static asset directories into the build output, minifying text assets and stamping a configurable license banner",
+	"main": "./lib/index.cjs",
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/proctorio/rollup-plugin-builder.git"
+	},
+	"scripts": {
+		"build-windows": "node build.mjs",
+		"build-linux": "node build.mjs",
+		"test": "vitest run",
+		"coverage": "vitest run --coverage",
+		"lint": "eslint --fix --ext .js src/ test/",
+		"build": "node build.mjs"
+	},
+	"type": "module",
+	"author": "Proctorio",
+	"license": "Apache-2.0",
+	"bugs": {
+		"url": "https://github.com/proctorio/rollup-plugin-builder/issues"
+	},
+	"homepage": "https://github.com/proctorio/rollup-plugin-builder#readme",
+	"eslintConfig": {
+		"extends": "@proctorio/eslint-config"
+	},
+	"dependencies": {
+		"clean-css": "4.2.3"
+	},
+	"devDependencies": {
+		"@proctorio/eslint-config": "2.5.*",
+		"@vitest/coverage-v8": "3.2.6",
+		"vitest": "3.2.6",
+		"esbuild": "0.25.*"
+	},
+	"module": "./lib/index.js",
+	"exports": {
+		".": {
+			"import": "./lib/index.js",
+			"require": "./lib/index.cjs"
+		}
+	},
+	"files": [
+		"lib"
+	]
+}
