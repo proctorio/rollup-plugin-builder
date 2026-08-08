@@ -1,0 +1,36 @@
+name: publish
+
+# The internal pipeline cuts release/x.y.z tags and the repository mirror pushes them here.
+# This workflow publishes to npmjs via OIDC trusted publishing (no tokens) and cuts the GitHub
+# release. package.json on main is never version-bumped - the version comes from the tag name.
+
+on:
+  push:
+    tags:
+      - "release/*"
+
+permissions:
+  contents: write
+  id-token: write
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          registry-url: "https://registry.npmjs.org"
+      # trusted publishing needs a current npm cli
+      - run: npm install -g npm@latest
+      - name: Set version from the release tag
+        run: npm version "${GITHUB_REF_NAME#release/}" --no-git-tag-version
+      - run: npm install
+      - run: npm test
+      - run: npm run build
+      - run: npm publish --access public
+      - name: GitHub release
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: gh release create "$GITHUB_REF_NAME" --title "v${GITHUB_REF_NAME#release/}" --generate-notes || echo "release already exists"
