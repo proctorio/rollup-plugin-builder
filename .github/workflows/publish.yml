@@ -25,7 +25,7 @@ jobs:
       # trusted publishing needs a current npm cli
       - run: npm install -g npm@latest
       - name: Set version from the release tag
-        run: npm version "${GITHUB_REF_NAME#release/}" --no-git-tag-version
+        run: npm version "${GITHUB_REF_NAME#release/}" --no-git-tag-version --allow-same-version
       - run: npm install
       - run: npm test
       - run: npm run build
