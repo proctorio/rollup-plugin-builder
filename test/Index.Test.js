@@ -133,6 +133,17 @@ describe("builder()", function()
 		expect(OUTPUT).toBe("/*\nCOPYRIGHT (C) 2013-2027 EXAMPLE INC.\nALL RIGHTS RESERVED.\n*/\nbody{color:red}");
 	});
 
+	it("Should keep the banner ahead of valid content for a css asset saved with a BOM", async function()
+	{
+		await writeInput("bom.css", "\uFEFFdiv.dialog { display: none; }");
+		await run({ banner: { text: BANNER_TEXT,
+																								startYear: 2013 } });
+
+		const OUTPUT = await readOutput("bom.css");
+		expect(OUTPUT).not.toContain("\uFEFF");
+		expect(OUTPUT).toBe("/*\nCOPYRIGHT (C) 2013-2027 EXAMPLE INC.\nALL RIGHTS RESERVED.\n*/\ndiv.dialog{display:none}");
+	});
+
 	it("Should not stamp when no banner is configured", async function()
 	{
 		await writeInput("style.css", "body { color: red; }");
