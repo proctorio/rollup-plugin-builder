@@ -32,7 +32,7 @@
 		"@proctorio/eslint-config": "2.5.*",
 		"@vitest/coverage-v8": "3.2.6",
 		"vitest": "3.2.6",
-		"esbuild": "0.25.*"
+		"esbuild": "0.28.*"
 	},
 	"module": "./lib/index.js",
 	"exports": {
