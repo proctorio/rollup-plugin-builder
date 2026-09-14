@@ -16,3 +16,7 @@ stages:
 - template: stages/sync/sync.yml@templates  # Template reference
   parameters:
     checkout: rollup-plugin-builder
+    # GitHub-side merges auto-publish: the import commit carries no
+    # [skip ci], so version-pack fires on community merges and dependency
+    # bumps (Mike-approved 2026-09-13; the echo marker prevents ping-pong).
+    skip_ci: false
