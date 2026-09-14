@@ -1,0 +1,19 @@
+# Grouping is the point: this repo pins dependencies exactly, and packages
+# can peer-pin each other to the same exact version. A single-package bump
+# splits such pairs and fails the install, so dependabot must bump related
+# packages together in one pull request.
+version: 2
+updates:
+  - package-ecosystem: "npm"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+    groups:
+      npm-version-updates:
+        applies-to: version-updates
+        patterns:
+          - "*"
+      npm-security-updates:
+        applies-to: security-updates
+        patterns:
+          - "*"
