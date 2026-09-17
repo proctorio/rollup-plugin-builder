@@ -29,9 +29,9 @@
 		"@proctorio/hulk": "2.1.4"
 	},
 	"devDependencies": {
-		"@proctorio/eslint-config": "2.5.*",
-		"@vitest/coverage-v8": "3.2.6",
-		"vitest": "3.2.6",
+		"@proctorio/eslint-config": "4.0.*",
+		"@vitest/coverage-v8": "5.0.0",
+		"vitest": "5.0.0",
 		"esbuild": "0.28.*"
 	},
 	"module": "./lib/index.js",
